@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/*
+ * Revia visual foundation.
+ *
+ * Tokens are declared as plain CSS custom properties and mapped into
+ * Tailwind's theme with `@theme inline`, so utilities such as `bg-surface`
+ * or `text-muted-foreground` resolve to the variables below. That keeps a
+ * single source of truth and lets the dark palette override the same
+ * variables instead of duplicating utility classes.
+ */
+
+:root {
+  color-scheme: light;
+
+  --background: oklch(0.985 0.004 265);
+  --foreground: oklch(0.22 0.02 270);
+
+  --surface: oklch(1 0 0);
+  --surface-muted: oklch(0.965 0.006 265);
+  --surface-subtle: oklch(0.945 0.008 265);
+
+  --muted: oklch(0.965 0.006 265);
+  --muted-foreground: oklch(0.52 0.02 265);
+
+  --border: oklch(0.91 0.008 265);
+  --border-strong: oklch(0.84 0.012 265);
+
+  --primary: oklch(0.51 0.19 272);
+  --primary-foreground: oklch(0.99 0.005 272);
+  --primary-muted: oklch(0.94 0.03 272);
+
+  --accent: oklch(0.62 0.16 285);
+  --accent-foreground: oklch(0.99 0.005 285);
+
+  --success: oklch(0.58 0.14 155);
+  --success-foreground: oklch(0.99 0.01 155);
+  --warning: oklch(0.68 0.15 75);
+  --warning-foreground: oklch(0.22 0.04 75);
+  --danger: oklch(0.58 0.19 20);
+  --danger-foreground: oklch(0.99 0.01 20);
+
+  --ring: oklch(0.51 0.19 272);
+
+  --radius: 0.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --background: oklch(0.19 0.015 270);
+    --foreground: oklch(0.96 0.005 265);
+
+    --surface: oklch(0.235 0.018 270);
+    --surface-muted: oklch(0.275 0.018 270);
+    --surface-subtle: oklch(0.315 0.02 270);
+
+    --muted: oklch(0.275 0.018 270);
+    --muted-foreground: oklch(0.7 0.015 265);
+
+    --border: oklch(0.32 0.02 270);
+    --border-strong: oklch(0.4 0.022 270);
+
+    --primary: oklch(0.66 0.16 272);
+    --primary-foreground: oklch(0.17 0.02 272);
+    --primary-muted: oklch(0.31 0.06 272);
+
+    --accent: oklch(0.7 0.14 285);
+    --accent-foreground: oklch(0.17 0.02 285);
+
+    --success: oklch(0.7 0.14 155);
+    --success-foreground: oklch(0.17 0.03 155);
+    --warning: oklch(0.78 0.14 75);
+    --warning-foreground: oklch(0.2 0.04 75);
+    --danger: oklch(0.68 0.17 20);
+    --danger-foreground: oklch(0.17 0.03 20);
+
+    --ring: oklch(0.66 0.16 272);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-subtle: var(--surface-subtle);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-muted: var(--primary-muted);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+
+  --color-ring: var(--ring);
+
+  --radius-app: var(--radius);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /*
+   * A single visible focus treatment for every interactive element.
+   * Revia is used in long study sessions, so focus must never be invisible.
+   */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
+  ::selection {
+    background-color: var(--primary-muted);
+    color: var(--foreground);
+  }
+}
+
+/*
+ * Revia avoids decorative motion by default. Honour the OS preference and
+ * collapse all transitions for users who ask for it.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
